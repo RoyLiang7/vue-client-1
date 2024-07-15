@@ -9,8 +9,9 @@
 </script>
 
 <template>
-    <h1>This is an touch up 33333</h1>
-    <h1>{{ msg }}</h1>
+    <h6>This is an touch up 33333</h6>
+    <h1>GitHub Actions - CD CI</h1>
+    <h6>{{ msg }}</h6>
 
     <div class="card">
         <button type="button" @click="count++">count is {{ count }}</button>
