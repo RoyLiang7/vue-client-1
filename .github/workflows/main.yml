@@ -1,22 +1,26 @@
-name: DEPLOY TO STAGING
+name: Deploy with Firebase
 
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   firebase-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-      - name: Installing project dependencies
-      - run: npm install
-      - name: Building the project
-      - run: npm run build
-      - uses: RoyLiang7/vue-client-1@main
+      - name: Fetch repo
+        uses: actions/checkout@master
+      - name: Install node
+        uses: actions/setup-node@master
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy with Firebase
+        uses: RoyLiang7/vue-client-1@main
         with:
           args: deploy --only hosting
         env:
+          # see via cmd: firebase login:ci
           FIREBASE_TOKEN: ${{ secrets.FirebaseDeploy }}
