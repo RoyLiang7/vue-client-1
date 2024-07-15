@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
       - name: Install node
-        uses: actions/setup-node@main
+        uses: actions/setup-node@v2
       - name: Install dependencies
         run: npm install
       - name: Build
