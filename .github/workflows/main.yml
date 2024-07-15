@@ -2,7 +2,7 @@ name: Firebase hosting
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   deploy:
