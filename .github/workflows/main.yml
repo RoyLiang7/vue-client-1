@@ -1,26 +1,30 @@
-name: Deploy with Firebase
+name: Deploy to Firebase Hosting
 
 on:
   push:
     branches:
-      - dev
+      - main # Change this to your desired branch
 
 jobs:
-  firebase-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Fetch repo
-        uses: actions/checkout@master
-      - name: Install node
-        uses: actions/setup-node@master
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy with Firebase
-        uses: RoyLiang7/vue-client-1@main
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          args: deploy --only hosting
+          node-version: '14'
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Authenticate with Firebase
+        run: firebase login:ci
         env:
-          # see via cmd: firebase login:ci
-          FIREBASE_TOKEN: ${{ secrets.FirebaseDeploy }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting
