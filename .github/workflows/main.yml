@@ -1,4 +1,4 @@
-name: Deploy to Live Channel 2
+name: Deploy to Live Channel 3
 
 on:
   push:
