@@ -1,26 +1,22 @@
-name: Deploy with Firebase 1
+name: Deploy to Live Channel
 
 on:
   push:
     branches:
       - main
+    # Optionally configure to run only for specific files. For example:
+    # paths:
+    # - "website/**"
 
 jobs:
-  firebase-deploy:
+  deploy_live_website:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch repo
-        uses: actions/checkout@v2
-      - name: Install node
-        uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy with Firebase
-        uses: RoyLiang7/vue-client-1@main
+      - uses: actions/checkout@v4
+      # Add any build steps here. For example:
+      # - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting
-        env:
-          # see via cmd: firebase login:ci
-          FIREBASE_TOKEN: ${{ secrets.FirebaseDeploy }}
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: dev-ops-vue-client
+          channelId: live
